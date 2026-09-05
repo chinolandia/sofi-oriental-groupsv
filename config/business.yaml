@@ -1,0 +1,78 @@
+# Configuración — Generado por AgentKit
+# ─────────────────────────────────────────────────────────────
+# Oriental Group es una "tienda paraguas": agrupa varias tiendas/paginas de
+# venta, cada una con su propia identidad, catalogo y anuncios.
+#
+# Modelo de deteccion: OPCION B — un solo numero de WhatsApp compartido. Sofi
+# identifica de que tienda viene el cliente por el ANUNCIO de Facebook/Instagram
+# de origen (objeto "referral" del primer mensaje). Una vez identificada, la
+# tienda queda fijada para esa conversacion.
+# ─────────────────────────────────────────────────────────────
+
+paraguas:
+  nombre: "Oriental Group"
+  descripcion: >
+    Grupo de comercio electronico en El Salvador. Opera varias tiendas
+    independientes de venta al por menor, cada una enfocada en su linea de
+    productos. Las ventas y los pedidos se gestionan por WhatsApp, con entrega a
+    domicilio en todo el pais.
+  pais: "El Salvador"
+
+agente:
+  nombre: "Sofi"
+  # Como se presenta cuando SI identifico la tienda.
+  presentacion: "Hola, soy Sofi, asesora de ventas de {tienda}."
+  # Como actua cuando NO logra identificar la tienda (sin referral y sin tienda
+  # previa para ese numero, y no hay tienda_por_defecto).
+  sin_tienda: >
+    Preséntate solo como "Sofi" (sin nombrar tienda), pregunta con amabilidad por
+    cuál producto escribe el cliente o desde qué anuncio llegó, y con eso continúa.
+    No inventes el nombre de una tienda ni des precios que no tengas.
+
+  # Si la deteccion falla, usar esta tienda. Con una sola tienda activa y numero
+  # compartido, TODO el trafico es de ella, asi que tiene sentido. Cuando haya
+  # varias tiendas, pon esto en "null" para forzar la deteccion por anuncio.
+  tienda_por_defecto: "chinolandia-sv"
+
+# Politicas y datos que TODAS las tiendas comparten, salvo que su ficha los
+# sobrescriba en su seccion "politicas".
+defaults:
+  horario: "Lunes a Domingo, de 6:00am a 11:00pm"
+  envio: >
+    Entrega a domicilio en todo El Salvador. Envío gratis. El tiempo general es de
+    12 a 48 horas según la zona; algunos productos indican un tiempo más corto.
+    No hay punto físico de entrega ni de retiro. La empresa de envíos se comunica
+    antes para coordinar la entrega.
+  formas_de_pago:
+    - "Pago contra entrega"
+    - "Transferencia bancaria"
+    - "Enlace de pago"
+  datos_para_pedido:
+    - "Producto(s) y cantidad"
+    - "Nombre completo"
+    - "Número de teléfono de contacto"
+    - "Dirección completa de entrega"
+    - "Punto de referencia (si tiene)"
+    - "Forma de pago"
+  devoluciones: >
+    No se aceptan devoluciones. Oriental Group no se responsabiliza por mal manejo
+    del producto. Solo se hacen cambios por desperfectos de fábrica reportados
+    dentro de los tres (3) días desde la entrega, con empaque original, sin uso ni
+    alteraciones.
+  garantia: "La garantía depende del producto. El cliente puede consultarla antes de comprar."
+  reservas: "Sujetas a disponibilidad. No se reservan productos por más de 3 días."
+  descuento_cantidad: >
+    El precio del anuncio normalmente es único. Si el pedido es de 3 artículos o
+    más en total, se puede ofrecer un 10% de descuento sobre el total de los
+    artículos. Ofrecelo vos cuando el cliente llegue a 3 o más; con 1 o 2
+    artículos va a precio normal, sin mencionar descuento.
+
+# Tiendas activas. Cada "id" corresponde a config/tiendas/<id>.yaml
+tiendas:
+  - "chinolandia-sv"
+
+metadata:
+  creado: "2026-08-29"
+  actualizado: "2026-09-02 — modelo multi-tienda (Opción B: número compartido + detección por anuncio)"
+  proveedor: "meta"
+  version: "3.0"

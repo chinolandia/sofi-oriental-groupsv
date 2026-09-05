@@ -6,6 +6,9 @@
 *.sqlite
 *.sqlite3
 
+# Datos que genera el agente en runtime (leads, pedidos, seguimiento)
+data/
+
 # Python
 __pycache__/
 *.py[cod]
@@ -16,18 +19,6 @@ env/
 *.egg-info/
 dist/
 build/
-
-# Knowledge (archivos privados del negocio)
-knowledge/*
-!knowledge/.gitkeep
-
-# Archivos generados por Claude Code durante onboarding
-agent/
-config/
-tests/
-requirements.txt
-Dockerfile
-docker-compose.yml
 
 # Session state
 config/session.yaml

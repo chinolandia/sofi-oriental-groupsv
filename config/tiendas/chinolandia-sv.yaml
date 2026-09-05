@@ -1,0 +1,64 @@
+# Tienda: Chinolandia SV — parte de Oriental Group
+# Generado por AgentKit
+
+id: "chinolandia-sv"
+nombre: "Chinolandia SV"
+facebook_page: "Chinolandia SV"
+
+# ── Detección (Opción B: por anuncio de Facebook/Instagram) ──
+# Cuando alguien da clic en "Enviar mensaje" desde un anuncio, el primer mensaje
+# trae un objeto "referral". Sofi resuelve la tienda probando, en orden:
+#   1. ad_ids        -> coincidencia exacta con referral.source_id
+#   2. palabras_clave -> aparecen en referral.headline o referral.body (texto del anuncio)
+#   3. fuentes_url    -> fragmentos que aparezcan en referral.source_url
+# La primera tienda que coincida gana. Luego queda fijada para esa conversación.
+deteccion:
+  ad_ids: []
+  palabras_clave:
+    - "acupuntura"
+    - "lápiz de acupuntura"
+    - "lapiz de acupuntura"
+    - "sin agujas"
+    - "alivio que se siente"
+    - "chinolandia"
+    - "dolor muscular"
+    - "ciática"
+    - "ciatica"
+    # Resto del catálogo (config/tiendas/README de catalogo.md), por si algun
+    # anuncio futuro los menciona en el headline/body.
+    - "tens pro"
+    - "electrodos"
+    - "ventosas"
+    - "masajeador"
+    - "gorro antimigraña"
+    - "báscula inteligente"
+    - "almohada cervical"
+    - "almohada para piernas"
+    - "cubo antiestrés"
+    - "soporte cervical"
+    - "revoflex"
+    - "extensor abdominal"
+    - "camelbak"
+    - "ojitos led"
+    - "dashcam"
+  fuentes_url:
+    - "chinolandia"
+
+# ── Identidad para el prompt ───────────────────────────────
+identidad: >
+  Chinolandia SV es una tienda salvadoreña de productos de bienestar, salud y
+  alivio del dolor: aparatos de terapia, masajeadores, artículos para dolores
+  musculares y articulares. Vende por WhatsApp con entrega a domicilio en todo
+  El Salvador. Su comunicación es cercana pero semiformal, directa y enfocada en
+  resolver la duda del cliente y en el beneficio del producto.
+
+tono: "semiformal y cercana; respuestas concisas y claras; orientada a cerrar la venta sin presionar"
+
+# ── Políticas propias (sobrescriben los defaults del paraguas) ──
+politicas:
+  envio: >
+    Entrega a domicilio en todo El Salvador, envío GRATIS. Tiempo general de 12 a
+    48 horas según la zona. El lápiz de acupuntura se entrega en 12 a 24 horas.
+
+# ── Catálogo ───────────────────────────────────────────────
+catalogo: "knowledge/chinolandia-sv/catalogo.md"
