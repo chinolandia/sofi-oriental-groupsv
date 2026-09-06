@@ -143,7 +143,11 @@ class ProveedorMeta(ProveedorWhatsApp):
         trae phone_number_id (lo pone parsear_webhook), se usa ese; si no, el del .env.
         """
         contexto = contexto or {}
-        phone_number_id = contexto.get("phone_number_id") or self.phone_number_id
+        # Se prioriza el numero configurado en el .env (META_PHONE_NUMBER_ID): con un
+        # solo numero de WhatsApp para todo el paraguas, SIEMPRE se responde desde ese.
+        # El del contexto queda como respaldo por si algun dia el .env no lo trae.
+        # (Ademas, los payloads de prueba de Meta traen un phone_number_id falso.)
+        phone_number_id = self.phone_number_id or contexto.get("phone_number_id")
 
         if not self.access_token or not phone_number_id:
             logger.error("No se puede enviar: faltan META_ACCESS_TOKEN o META_PHONE_NUMBER_ID")
