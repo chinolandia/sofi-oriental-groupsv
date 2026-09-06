@@ -14,7 +14,7 @@ from contextlib import asynccontextmanager
 
 from dotenv import load_dotenv
 from fastapi import BackgroundTasks, FastAPI, HTTPException, Request
-from fastapi.responses import PlainTextResponse
+from fastapi.responses import HTMLResponse, PlainTextResponse
 
 from agent.brain import generar_respuesta, obtener_mensaje_error
 from agent.memory import (
@@ -104,6 +104,71 @@ async def health_check():
         "proveedor": proveedor.__class__.__name__ if proveedor else None,
         "conexion": estado_proveedor,
     }
+
+
+POLITICA_PRIVACIDAD = """<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Politica de Privacidad — Sofi / Oriental Group</title>
+<style>body{font-family:system-ui,Arial,sans-serif;max-width:720px;margin:40px auto;padding:0 20px;line-height:1.6;color:#222}h1{font-size:1.5rem}h2{font-size:1.1rem;margin-top:1.8em}</style>
+</head><body>
+<h1>Politica de Privacidad</h1>
+<p><strong>Responsable:</strong> Oriental Group / Chinolandia SV (El Salvador).
+Contacto: chinolandiasv@gmail.com</p>
+<p>Ultima actualizacion: 2026-09-05</p>
+
+<h2>1. Que informacion recopilamos</h2>
+<p>Cuando escribes a nuestro numero de WhatsApp, recibimos y guardamos:</p>
+<ul>
+<li>Tu numero de telefono de WhatsApp y el nombre de tu perfil.</li>
+<li>El contenido de los mensajes que nos envias.</li>
+<li>Los datos que nos proporcionas para procesar un pedido: nombre, telefono de
+contacto, direccion de entrega, punto de referencia y forma de pago.</li>
+<li>Si llegas desde un anuncio, el identificador de ese anuncio.</li>
+</ul>
+
+<h2>2. Para que la usamos</h2>
+<ul>
+<li>Responder tus consultas y darte informacion de nuestros productos.</li>
+<li>Tomar y gestionar tus pedidos.</li>
+<li>Dar seguimiento a tu conversacion y coordinar la entrega.</li>
+</ul>
+
+<h2>3. Procesamiento automatizado</h2>
+<p>Las respuestas las genera un asistente virtual ("Sofi"). Para redactarlas, el
+texto de la conversacion se envia al servicio de inteligencia artificial de
+Anthropic (Claude), que lo procesa para producir la respuesta y no lo utiliza
+para entrenar sus modelos.</p>
+
+<h2>4. Con quien la compartimos</h2>
+<p>No vendemos tus datos. Solo los compartimos con la empresa de mensajeria
+encargada de entregar tu pedido, y con Meta/WhatsApp como parte del
+funcionamiento del canal. No se comparten con terceros para fines publicitarios.</p>
+
+<h2>5. Cuanto tiempo la conservamos</h2>
+<p>Guardamos el historial de la conversacion para poder atenderte con contexto en
+futuros mensajes. Puedes pedir que eliminemos tu informacion en cualquier
+momento escribiendo a chinolandiasv@gmail.com.</p>
+
+<h2>6. Tus derechos</h2>
+<p>Puedes solicitar acceso, correccion o eliminacion de tus datos escribiendo a
+chinolandiasv@gmail.com. Tambien puedes dejar de escribirnos y bloquear el
+numero en cualquier momento.</p>
+
+<h2>7. Seguridad</h2>
+<p>Los mensajes viajan cifrados por WhatsApp. La informacion se guarda en una base
+de datos de acceso restringido.</p>
+
+<h2>8. Cambios</h2>
+<p>Podemos actualizar esta politica. La version vigente siempre estara publicada
+en esta misma direccion.</p>
+</body></html>"""
+
+
+@app.get("/privacy", response_class=HTMLResponse)
+async def politica_privacidad():
+    """Politica de privacidad publica (la exige Meta para publicar la app)."""
+    return POLITICA_PRIVACIDAD
 
 
 @app.get("/webhook")
